@@ -20,4 +20,4 @@ To run :
  $ wget -d http://127.0.0.1:8080/  <ENTER>
 	
  or
-$ lynx -d http://127.0.0.1:8080/  <ENTER>	
+$ lynx  http://127.0.0.1:8080/  <ENTER>	
