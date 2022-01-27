@@ -65,3 +65,14 @@ target_compile_definitions(wb PRIVATE
 
 target_link_libraries(wb -pthread -lrt  -ljson-c -lmagic)
 
+
+FILE(WRITE ${CMAKE_BINARY_DIR}/index.html
+"<html>\r\n"
+"  <head>\r\n"
+"    <title>BadAss's nano HTTP server index.html</title>\r\n"
+"  </head>\r\n"
+"  <body>\r\n"
+"   <p>This is an example index page to demonstrate a Power of the DAP SKD API</p>\r\n"
+"  </body>\r\n"
+"</html>\r\n"
+)

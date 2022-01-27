@@ -13,7 +13,10 @@
  *   CREATION DATE: 25-JAN-2022
  *
  *   BUILD:
- *	{tbs}
+ *
+ *	$ cmake build . -DDAP_SDK_ROOT="./"
+ *	$ cd build
+ *	$ make
  *
  *   USAGE:
  *	on server side:
@@ -76,7 +79,7 @@ static const	char g_say_what_again  [] = "<HTML><PRE>" \
  *   RETURNS:
  *	NONE
  */
-static void wb_http_header_read_cb (void *ctx, int *rc )
+static void s_wb_http_rqproc_cb (void *ctx, int *rc )
 {
 struct dap_http_simple *hts = (	struct dap_http_simple *) ctx;
 char	*contents;
@@ -90,6 +93,8 @@ size_t	length;
 	else	{
 		dap_http_simple_reply(hts, contents, length );
 		free(contents);
+
+		strcpy( hts->reply_mime, "text/html" );
 
 		*rc = Http_Status_OK;
 		log_it( L_DEBUG, "A content to be returned follows (%d octets)\n\n%.*s\n\n", hts->reply_size, hts->reply_size, hts->reply_str);
@@ -159,7 +164,7 @@ dap_events_t *l_events;
 		return	log_it( L_CRITICAL, "dap_http_new() failed"), -EINVAL;
 
 
-	dap_http_simple_proc_add( DAP_HTTP( l_server), "/", DAP_HTTP_SIMPLE_REQUEST_MAX, (dap_http_simple_callback_t) wb_http_header_read_cb);
+	dap_http_simple_proc_add( DAP_HTTP( l_server), "/", DAP_HTTP_SIMPLE_REQUEST_MAX, (dap_http_simple_callback_t) s_wb_http_rqproc_cb);
 
 
 	/* Hibernate main thread untile something critical will take place ... */
